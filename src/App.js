@@ -11,7 +11,7 @@ function App() {
 
   useEffect(() => {
     // Fetch existing products from the backend API and update the suggestedProducts state
-    fetch('http://localhost:3333/api/products-client')
+    fetch('https://super-polo-shirt-tick.cyclic.app/api/products-client')
       .then((response) => response.json())
       .then((data) => {
         setSuggestedProducts(data);
@@ -46,7 +46,7 @@ function App() {
     // Pass the list of products to the server and implement the logic to find the cheapest prices
 
     // Example API call using fetch
-    fetch('http://localhost:3333/api/cheapest', {
+    fetch('https://super-polo-shirt-tick.cyclic.app/api/cheapest', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
