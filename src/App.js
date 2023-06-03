@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 function App() {
   const [inputValue, setInputValue] = useState('');
@@ -10,14 +12,14 @@ function App() {
   const [suggestedProducts, setSuggestedProducts] = useState([]);
 
   useEffect(() => {
-    // Fetch existing products from the backend API and update the suggestedProducts state
+    // Извличане на наличните продукти от API на сървъра и актуализиране на състоянието на предлаганите продукти
     fetch('https://super-polo-shirt-tick.cyclic.app/api/products-client')
       .then((response) => response.json())
       .then((data) => {
         setSuggestedProducts(data);
       })
       .catch((error) => {
-        console.error('Error:', error);
+        console.error('Грешка:', error);
       });
   }, []);
 
@@ -39,13 +41,12 @@ function App() {
   const handleRemoveProduct = (product) => {
     setShoppingList((prevList) => prevList.filter((p) => p.name !== product.name));
   };
-  
 
   const handleFindCheapest = () => {
-    // Make an API call to your backend server with the shopping list data
-    // Pass the list of products to the server and implement the logic to find the cheapest prices
+    // Изпратка на заявка към сървъра с информацията за списъка с покупки
+    // Предаване на списъка с продукти на сървъра и изпълнение на логиката за намиране на най-евтините цени
 
-    // Example API call using fetch
+    // Пример за използване на fetch за изпращане на заявка
     fetch('https://super-polo-shirt-tick.cyclic.app/api/cheapest', {
       method: 'POST',
       headers: {
@@ -56,17 +57,17 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        // Update the cheapestStores state with the response data
+        // Актуализиране на състоянието на най-евтините магазини с получените данни от сървъра
         setCheapestStores(data);
       })
       .catch((error) => {
-        console.error('Error:', error);
+        console.error('Грешка:', error);
       });
   };
 
   return (
     <div className="container">
-      <h1 className="mt-4">Shopping List</h1>
+      <h1 className="mt-4">Списък за пазаруване</h1>
       <div className="mb-3">
         <Typeahead
           id="productTypeahead"
@@ -78,32 +79,32 @@ function App() {
       </div>
       <div className="mb-3">
         <button className="btn btn-primary me-2" onClick={handleAddProduct}>
-          Add Product
+          Добави продукт
         </button>
         <button className="btn btn-primary" onClick={handleFindCheapest}>
-          Find Cheapest
+          Намери най-евтино
         </button>
       </div>
       <ul className="list-group mb-4">
         {shoppingList.map((product) => (
-          <li key={product._id} className="list-group-item">
+          <li key={product._id} className="list-group-item d-flex justify-content-between align-items-center">
             {product.name}
             <button
-              className="btn btn-sm btn-danger ms-2"
+              className="btn btn-sm btn-danger"
               onClick={() => handleRemoveProduct(product)}
             >
-              Remove
+              <FontAwesomeIcon icon={faTrashAlt} />
             </button>
           </li>
         ))}
       </ul>
       {cheapestStores.length > 0 && (
         <div>
-          <h4>Cheapest places to buy:</h4>
+          <h4>Най-евтини места за покупка:</h4>
           <ul className="list-group mb-4">
             {cheapestStores.map((store, index) => (
               <li key={index} className="list-group-item">
-                In <b>{store.store}</b> you will buy it for a total of{' '}
+                В <b>{store.store}</b> можете да го закупите за обща сума от{' '}
                 <b>
                   {new Intl.NumberFormat('bg-BG', {
                     style: 'currency',
