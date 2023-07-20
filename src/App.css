@@ -42,3 +42,7 @@
   margin: 0 auto;
   padding: 20px;
 }
+
+.gm-style-iw button[title="Close"] {
+  display: none !important;
+}
