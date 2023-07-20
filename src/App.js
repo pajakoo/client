@@ -17,7 +17,7 @@ function App() {
   const [cheapestStores, setCheapestStores] = useState([]);
   const [suggestedProducts, setSuggestedProducts] = useState([]);
   const [isOpen, setIsOpen] = useState(true);
-  const [url, setUrl] = useState('http://localhost:3333');
+  const [url, setUrl] = useState('https://super-polo-shirt-tick.cyclic.app');
   const [selectedStore, setSelectedStore] = useState(null);
   const [productPriceHistories, setProductPriceHistories] = useState({});
   const [chartInstance, setChartInstance] = useState(null);
