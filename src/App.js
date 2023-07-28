@@ -9,7 +9,27 @@ import { GoogleMap, Marker, InfoWindow, useLoadScript } from '@react-google-maps
 import { Line } from 'react-chartjs-2';
 import moment from 'moment';
 import 'chartjs-adapter-moment';
-import Chart from 'chart.js/auto';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js'
+import { Chart } from 'react-chartjs-2'
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+)
 
 function App() {
   const [inputValue, setInputValue] = useState('');
